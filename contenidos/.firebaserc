@@ -1,5 +1,9 @@
 {
   "projects": {
-    "default": "consultoria-legal-dev"
-  }
+    "default": "consultoria-legal-dev",
+    "prod": "consultoria-legal",
+    "dev": "consultoria-legal-dev"
+  },
+  "targets": {},
+  "etags": {}
 }
