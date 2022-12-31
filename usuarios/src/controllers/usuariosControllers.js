@@ -44,10 +44,11 @@ export const crear = async (req, res) => {
 
 export const obtener = async (req, res) => {
     try {
-        const { params } = req
+        const { params, body } = req
+        const { cantidad, nextPageToken } = body
 
         // Obtener todos los usuarios
-        const usuariosAuth = await authenticationUseCase.obtenerTodosLosUsuarios()
+        const usuariosAuth = await authenticationUseCase.obtenerTodosLosUsuarios(cantidad, nextPageToken)
 
         // Retornar respuesta
         const respuesta = new Respuesta({
@@ -106,10 +107,10 @@ export const obtenerUnUsuario = async (req, res) => {
 export const actualizarContrasena = async (req, res) => {
     try {
         const { params, body } = req
-        const { uidUsuario, contrasena, confirmacionContrasena } = body
+        const { uidSolicitante, contrasena, confirmacionContrasena } = body
 
         // Actualizar contrasena
-        await authenticationUseCase.actualizar(uidUsuario, { password: contrasena })
+        await authenticationUseCase.actualizar(uidSolicitante, { password: contrasena })
 
         // Retornar respuesta
         const respuesta = new Respuesta({
@@ -135,10 +136,10 @@ export const actualizarContrasena = async (req, res) => {
 export const eliminar = async (req, res) => {
     try {
         const { params, body } = req
-        const { uidUsuario, contrasena } = body
+        const { uidSolicitante, contrasena } = body
 
         // Eliminar usuario
-        await authenticationUseCase.eliminar(uidUsuario)
+        await authenticationUseCase.eliminar(uidSolicitante)
 
         // Retornar respuesta
         const respuesta = new Respuesta({
