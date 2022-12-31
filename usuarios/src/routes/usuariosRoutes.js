@@ -1,16 +1,16 @@
 import { Router } from 'express'
-import { crear } from '../controllers/usuariosControllers.js'
+import { actualizarContrasena, crear, eliminar, obtener, obtenerUnUsuario } from '../controllers/usuariosControllers.js'
 
 const router = Router()
 
 router.post('/', crear)
 
-router.get('/')
+router.get('/', obtener)
 
-router.get('/:tipo/:valor')
+router.get('/:tipo/:valor', obtenerUnUsuario)
 
-router.put('/:tipo/:valor/actualizarContrasena')
+router.put('/actualizarContrasena', actualizarContrasena)
 
-router.delete('/:tipo/:valor')
+router.delete('/', eliminar)
 
 export default router
