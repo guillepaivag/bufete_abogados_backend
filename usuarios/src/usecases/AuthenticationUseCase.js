@@ -8,8 +8,8 @@ class AuthenticationUseCase {
     this.authenticationRepository = authenticationRepository
   }
 
-  async obtenerTodosLosUsuarios () {
-    return await this.authenticationRepository.obtenerTodosLosUsuarios()
+  async obtenerTodosLosUsuarios (cantidad = 1, nextPageToken = null) {
+    return await this.authenticationRepository.obtenerTodosLosUsuarios(cantidad, nextPageToken)
   }
 
   async obtenerPorUID (uid = '') {

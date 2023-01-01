@@ -15,9 +15,17 @@ class FirebaseAuthenticationRepository {
     
     }
 
-    async obtenerTodosLosUsuarios () {
-        const usuariosAuth = await firebaseAuthenticationService.getUsers()
-        return usuariosAuth
+    async obtenerTodosLosUsuarios (cantidad = 1, nextPageToken = null) {
+        const nextPageTokenAux = nextPageToken ? nextPageToken : undefined
+        const listUsersResult = await firebaseAuthenticationService.listUsers(cantidad, nextPageTokenAux)
+        
+        const users = []
+        listUsersResult.users.forEach((userRecord) => { users.push(userRecord) })
+
+        return {
+            users,
+            pageToken: listUsersResult.pageToken
+        }
     }
     
     async obtenerPorUID (uid = '') {
