@@ -1,5 +1,6 @@
-import firebaseFirestoreService from '../../firebase-service/firebase-firestore-service'
-import Contenido from '../models/Contenido'
+import collections_name_firestore from '../../firebase-service/collections_name_firestore/collections_name_firestore.js'
+import firebaseFirestoreService from '../../firebase-service/firebase-firestore-service.js'
+import Contenido from '../models/Contenido.js'
 
 
 class FirestoreContenidoRepository {

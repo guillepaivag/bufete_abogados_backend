@@ -102,7 +102,7 @@ export const actualizar = async (req, res) => {
         return res.status(respuesta.estado).json(respuesta.getRespuesta())
 
     } catch (error) {
-        console.log('Error - obtenerMiUsuario: ', error)
+        console.log('Error - actualizarContenido: ', error)
 
         const respuesta =  new RespuestaError({
             estado: 500,
@@ -135,7 +135,7 @@ export const eliminar = async (req, res) => {
         return res.status(respuesta.estado).json(respuesta.getRespuesta())
 
     } catch (error) {
-        console.log('Error - obtenerMiUsuario: ', error)
+        console.log('Error - eliminarContenido: ', error)
 
         const respuesta =  new RespuestaError({
             estado: 500,

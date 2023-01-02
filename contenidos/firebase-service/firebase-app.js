@@ -1,14 +1,7 @@
-import { initializeApp, cert } from 'firebase-admin/app'
-import serviceAccountKeyProd from './credentials/serviceAccountKeyProd.json' assert { type: 'json' }
-import serviceAccountKeyDev from './credentials/serviceAccountKeyDev.json' assert { type: 'json' }
+import { initializeApp } from 'firebase-admin/app'
+import admin from './firebase-admin.js'
 
-const environment = process.env.ENVIRONMENT
-let serviceAccount = null
-
-if (environment === 'production') serviceAccount = serviceAccountKeyProd
-else if (environment === 'development') serviceAccount = serviceAccountKeyDev
-
-const app = initializeApp({ credential: cert(serviceAccount) })
+const app = initializeApp({ credential: admin.credential.applicationDefault() })
 
 console.log('Administracion de firebase lista')
 
