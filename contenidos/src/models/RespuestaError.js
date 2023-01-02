@@ -30,6 +30,14 @@ class RespuestaError extends Error {
         this.resultado = resultado ? resultado : null
     }
 
+    getRespuesta() {
+        return {
+            estado: this.estado,
+            mensajeCliente: this.mensajeCliente,
+            resultado: this.resultado,
+        }
+    }
+
 }
 
 export default RespuestaError

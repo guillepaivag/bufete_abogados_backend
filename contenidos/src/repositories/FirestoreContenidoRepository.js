@@ -34,7 +34,6 @@ class FirestoreContenidoRepository {
     
         const snapshot = await this.collection
         .where('codigo', '==', codigo)
-        .where('eliminado', '==', false)
         .get()
     
         if (snapshot.empty) return null
@@ -46,15 +45,19 @@ class FirestoreContenidoRepository {
       }
     
       async crear (contenido = Contenido.params) {
+
+        const doc = this.collection.doc();
     
-        await this.collection.doc(contenido.uid).set({
-          uid: contenido.uid,
+        await this.collection.doc(doc.id).set({
+          uid: doc.id,
           codigo: contenido.codigo,
           titulo: contenido.titulo,
           texto: contenido.texto,
           foto: contenido.foto,
           tipo: contenido.tipo,
         })
+
+        contenido.uid = doc.id
     
         return contenido
     
@@ -65,7 +68,7 @@ class FirestoreContenidoRepository {
         const doc = this.collection.doc(uid)
         
         await doc.set({
-          uid: datosActualizados.uid,
+          uid: uid,
           codigo: datosActualizados.codigo,
           titulo: datosActualizados.titulo,
           texto: datosActualizados.texto,
