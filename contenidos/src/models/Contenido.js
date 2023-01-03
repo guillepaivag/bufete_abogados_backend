@@ -18,7 +18,7 @@ class Contenido {
             foto: { type: 'string', errorMessage: 'must be of string type' },
             tipo: { type: 'string', errorMessage: 'must be of string type' },
         },
-        required: ['uid','codigo','titulo','texto','foto', 'tipo'],
+        required: ['codigo','titulo','texto','foto', 'tipo'],
         additionalProperties: false,
     }
 

@@ -3,10 +3,14 @@ import Contenido from "../models/Contenido.js";
 
 // recibiendo como parámetros las dependencias necesarias.
 
-class contenidoUseCase {
+class ContenidoUseCase {
 
     constructor(contenidoRepository) {
         this.contenidoRepository = contenidoRepository
+    }
+
+    async obtenerTodos() {
+        return await this.contenidoRepository.obtenerTodos();
     }
 
     async obtenerPorUID(uid) {
@@ -45,4 +49,4 @@ class contenidoUseCase {
 
 }
 
-export default contenidoUseCase
+export default ContenidoUseCase

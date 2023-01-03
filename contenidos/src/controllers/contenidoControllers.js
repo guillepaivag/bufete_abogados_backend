@@ -4,8 +4,6 @@ import FirestoreContenidoRepository from "../repositories/FirestoreContenidoRepo
 import ContenidoUseCase from "../usecase/ContenidoUseCase.js"
 const contenidosUseCase = new ContenidoUseCase(new FirestoreContenidoRepository())
 
-
-
 export const obtener = async (req, res) => {
     try {
         const { params } = req
