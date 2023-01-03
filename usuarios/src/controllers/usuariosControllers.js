@@ -49,13 +49,33 @@ export const obtener = async (req, res) => {
 
         // Obtener todos los usuarios
         const usuariosAuth = await authenticationUseCase.obtenerTodosLosUsuarios(cantidad, nextPageToken)
+        
+        const usersAux = []
+        for (const iterator of usuariosAuth.users) {
+            // delete iterator.passwordHash
+            // delete iterator.passwordSalt
+            // delete iterator.providerData
+            // delete iterator.tokensValidAfterTime
+            usersAux.push({
+                customClaims: iterator.customClaims,
+                disabled: iterator.disabled,
+                email: iterator.email,
+                emailVerified: iterator.emailVerified,
+                metadata: iterator.metadata,
+                uid: iterator.uid,
+            })
+        }
+        
 
         // Retornar respuesta
         const respuesta = new Respuesta({
             estado: 200,
             mensajeCliente: 'exito',
             mensajeServidor: 'Se obtuvieron los usuarios con éxito.',
-            resultado: usuariosAuth
+            resultado: {
+                pageToken: usuariosAuth.pageToken,
+                users: usersAux
+            }
         })
 
         return res.status(respuesta.estado).json(respuesta.getRespuesta())
@@ -107,7 +127,8 @@ export const obtenerUnUsuario = async (req, res) => {
 export const actualizarContrasena = async (req, res) => {
     try {
         const { params, body } = req
-        const { uidSolicitante, contrasena, confirmacionContrasena } = body
+        const { solicitante, contrasena, confirmacionContrasena } = body
+        const { uidSolicitante } = solicitante
 
         // Actualizar contrasena
         await authenticationUseCase.actualizar(uidSolicitante, { password: contrasena })
@@ -136,7 +157,8 @@ export const actualizarContrasena = async (req, res) => {
 export const eliminar = async (req, res) => {
     try {
         const { params, body } = req
-        const { uidSolicitante, contrasena } = body
+        const { solicitante, contrasena } = body
+        const { uidSolicitante } = solicitante
 
         // Eliminar usuario
         await authenticationUseCase.eliminar(uidSolicitante)

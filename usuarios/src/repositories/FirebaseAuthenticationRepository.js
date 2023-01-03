@@ -24,7 +24,7 @@ class FirebaseAuthenticationRepository {
 
         return {
             users,
-            pageToken: listUsersResult.pageToken
+            pageToken: listUsersResult.pageToken ? listUsersResult.pageToken : ''
         }
     }
     
