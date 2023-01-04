@@ -14,8 +14,8 @@ export const estaAutenticado = async (req = request, res = response, next) => {
         const userInfo = await firebaseAuthenticationService.verifyIdToken(authToken)
         req.body.solicitante.uidSolicitante = userInfo.uid
 
-        const datosAuthSolicitante = await firebaseAuthenticationService.getUser( userInfo.uid )
-        req.body.solicitante.datosAuthSolicitante = datosAuthSolicitante
+        const authSolicitante = await firebaseAuthenticationService.getUser( userInfo.uid )
+        req.body.solicitante.authSolicitante = authSolicitante
 
         return next()
 
@@ -25,5 +25,3 @@ export const estaAutenticado = async (req = request, res = response, next) => {
     }
     
 }
-
-export default { estaAutenticado }
