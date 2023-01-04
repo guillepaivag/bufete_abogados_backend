@@ -2,7 +2,7 @@ import validUrl from 'valid-url'
 import esCodigo from "../helpers/esCodigo.js"
 import RespuestaError from '../models/RespuestaError.js'
 import validateSchema from '../helpers/validateSchema.js'
-import ContenidoUseCase from '../usecase/contenidoUseCase.js'
+import ContenidoUseCase from '../usecases/ContenidoUseCase.js'
 import FirestoreContenidoRepository from '../repositories/FirestoreContenidoRepository.js'
 import Contenido from '../models/Contenido.js'
 const contenidoUseCase = new ContenidoUseCase(new FirestoreContenidoRepository)

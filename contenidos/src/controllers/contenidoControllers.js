@@ -1,7 +1,7 @@
 import Respuesta from "../models/Respuesta.js"
 import RespuestaError from "../models/RespuestaError.js"
 import FirestoreContenidoRepository from "../repositories/FirestoreContenidoRepository.js"
-import ContenidoUseCase from "../usecase/ContenidoUseCase.js"
+import ContenidoUseCase from "../usecases/ContenidoUseCase.js"
 const contenidosUseCase = new ContenidoUseCase(new FirestoreContenidoRepository())
 
 export const obtener = async (req, res) => {
