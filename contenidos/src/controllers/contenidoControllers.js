@@ -51,6 +51,7 @@ export const crear = async (req, res) => {
         let contenido = await contenidosUseCase.crear(uid, {
             codigo: body.codigo,
             titulo: body.titulo,
+            descripcion: body.descripcion,
             texto: body.texto,
             foto: body.foto,
             tipo: body.tipo,

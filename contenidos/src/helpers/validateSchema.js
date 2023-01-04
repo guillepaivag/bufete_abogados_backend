@@ -17,6 +17,7 @@ function validateSchema(schema, req){
         let errorsPool = []
         
         validate.errors.forEach(element => {
+            console.log("element -------------------------",element)
             if (element.instancePath) {
                 var error = element.instancePath.replace("/","") + " " + element.message;
             } else {

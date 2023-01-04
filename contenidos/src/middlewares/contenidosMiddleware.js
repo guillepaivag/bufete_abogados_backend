@@ -83,8 +83,18 @@ export const validacionContenidoPost = async (req = request, res = response, nex
             })
         }
 
-        // verificamos que el contenido tenga al menos 10 caracteres hasta 300 
-        if (body.texto.length > 300 || body.texto.length < 10) {
+        // verificamos que el contenido tenga al menos 10 caracteres hasta 2700 
+        if (body.descripcion.length > 700 || body.descripcion.length < 10) {
+            throw new RespuestaError({
+                estado: 400,
+                mensajeCliente: 'descripcion_debe_ser_valido',
+                mensajeServidor: 'la descripcion debe ser valido',
+                resultado: null
+            })
+        }
+
+        // verificamos que el contenido tenga al menos 10 caracteres hasta 2700 
+        if (body.texto.length > 2700 || body.texto.length < 10) {
             throw new RespuestaError({
                 estado: 400,
                 mensajeCliente: 'texto_debe_ser_valido',
@@ -165,8 +175,18 @@ export const validacionContenidoPut = async (req = request, res = response, next
             })
         }
 
-        // verificamos que el contenido tenga al menos 10 caracteres hasta 300 
-        if (body.texto.length > 300 || body.texto.length < 10) {
+        // verificamos que el contenido tenga al menos 10 caracteres hasta 2700 
+        if (body.descripcion.length > 700 || body.descripcion.length < 10) {
+            throw new RespuestaError({
+                estado: 400,
+                mensajeCliente: 'descripcion_debe_ser_valido',
+                mensajeServidor: 'la descripcion debe ser valido',
+                resultado: null
+            })
+        }
+
+        // verificamos que el contenido tenga al menos 10 caracteres hasta 2700 
+        if (body.texto.length > 2700 || body.texto.length < 10) {
             throw new RespuestaError({
                 estado: 400,
                 mensajeCliente: 'texto_debe_ser_valido',

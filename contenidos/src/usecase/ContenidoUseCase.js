@@ -27,6 +27,7 @@ class ContenidoUseCase {
             uid: uid,
             codigo: data.codigo,
             titulo: data.titulo,
+            descripcion: data.descripcion,
             texto: data.texto,
             foto: data.foto,
             tipo: data.tipo,

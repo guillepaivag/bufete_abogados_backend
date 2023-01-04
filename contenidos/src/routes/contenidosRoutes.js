@@ -7,14 +7,16 @@ import {
     validacionContenidoDelete 
 } from "../middlewares/contenidosMiddleware.js"
 
+import { estaAutenticado } from '../middlewares/estaAutenticado.js'
+
 const router = Router()
 
-router.post('/', validacionContenidoPost, crear)
+router.post('/', estaAutenticado, validacionContenidoPost, crear)
 
 router.get('/:tipo/:valor', validacionContenidoGet, obtener)
 
-router.put('/:uid', validacionContenidoPut, actualizar)
+router.put('/:uid', estaAutenticado, validacionContenidoPut, actualizar)
 
-router.delete('/:uid', validacionContenidoDelete, eliminar)
+router.delete('/:uid', estaAutenticado, validacionContenidoDelete, eliminar)
 
 export default router
