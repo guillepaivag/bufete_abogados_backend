@@ -52,10 +52,6 @@ export const obtener = async (req, res) => {
         
         const usersAux = []
         for (const iterator of usuariosAuth.users) {
-            // delete iterator.passwordHash
-            // delete iterator.passwordSalt
-            // delete iterator.providerData
-            // delete iterator.tokensValidAfterTime
             usersAux.push({
                 customClaims: iterator.customClaims,
                 disabled: iterator.disabled,

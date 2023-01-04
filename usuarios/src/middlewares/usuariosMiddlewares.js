@@ -1,5 +1,5 @@
 import { request, response } from 'express'
-import RespuestaError from '../models/RespuestaError.js'
+import { verificadorActualizacionContrasena } from './helpers/usuarios/verificadorActualizacionContrasena.js'
 
 export const verificacionActualizacionContrasena = async (req = request, res = response, next) => {
     try {
@@ -7,21 +7,8 @@ export const verificacionActualizacionContrasena = async (req = request, res = r
         const { solicitante, contrasena, confirmacionContrasena } = body
         const { uidSolicitante } = solicitante
 
-        if (typeof contrasena !== 'string') {
-            throw new RespuestaError({
-                estado: 400,
-                mensajeCliente: 'formato_contrasena_incorrecto',
-                mensajeServidor: 'La contraseña debe ser string.'
-            })
-        }
-
-        if (contrasena !== confirmacionContrasena) {
-            throw new RespuestaError({
-                estado: 400,
-                mensajeCliente: 'confirmacion_diferente',
-                mensajeServidor: 'La confirmación es diferente a la contraseña.'
-            })
-        }
+        const respuestaError = verificadorActualizacionContrasena({ contrasena, confirmacionContrasena })
+        if (respuestaError) throw respuestaError
 
         return next()
 
@@ -32,10 +19,17 @@ export const verificacionActualizacionContrasena = async (req = request, res = r
 }
 
 export const verificacionEliminacionUsuario = async (req = request, res = response, next) => {
-    const { body } = req
-    const { solicitante, contrasena } = body
+    try {
+        const { body } = req
+        const { solicitante, contrasena } = body
+        const { uidSolicitante } = solicitante
 
-    
+        return next()
+
+    } catch ( error ) {
+        console.log('error', error)
+        next(error)
+    }
 }
 
 
