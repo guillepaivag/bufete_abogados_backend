@@ -4,15 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve":" npm run usuarios_serve  npm run contenidos_serve",
     "usuarios_serve":"cd usuarios && npm run serve",
     "contenidos_serve":"cd contenidos && npm run serve",
 
     "deploy": "cd usuarios && npm run deploy && cd ..",
-    "env_prod": "cd usuarios && firebase use prod && cd ..",
+    "env_prod": "cd usuarios && firebase use prod && cd .. && cd contenidos && firebase use prod && cd ..",
     "env_dev": "cd usuarios && firebase use dev && cd .. && cd contenidos && firebase use dev && cd ..",
-    "env_test": "cd usuarios && firebase use test && cd ..",
-    "npmi": "cd usuarios && npm i && cd .. && cd contenidos && npm i && cd .."
+    "install_all": "cd usuarios && npm i && cd .. && cd contenidos && npm i && cd .."
   },
   "keywords": [],
   "author": "",

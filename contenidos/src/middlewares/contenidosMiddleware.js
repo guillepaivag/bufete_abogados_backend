@@ -24,15 +24,11 @@ export const validacionContenidoGet = async (req = request, res = response, next
 
         let contenido = null
 
-        if (tipo === 'uid') {
-            // verificamos que exista la uid
-            contenido = await contenidoUseCase.obtenerPorUID(valor)
-        }
+        // verificamos que exista la uid
+        if (tipo === 'uid') contenido = await contenidoUseCase.obtenerPorUID(valor)
 
-        if (tipo === 'codigo') {
-            // verificamos que exista la uid
-            contenido = await contenidoUseCase.obtenerPorCodigo(valor)
-        }
+        // verificamos que exista la uid
+        if (tipo === 'codigo') contenido = await contenidoUseCase.obtenerPorCodigo(valor)
 
         if (!contenido) {
             throw new RespuestaError({
@@ -53,15 +49,15 @@ export const validacionContenidoPost = async (req = request, res = response, nex
     try {
         const { body } = req
 
-        const validation = validateSchema(Contenido.schema, req);
-        if (validation !== true) {
-            throw new RespuestaError({
-                estado: 422,
-                mensajeCliente: validation.data,
-                mensajeServidor: validation.data,
-                resultado: null
-            })
-        }
+        // const validation = validateSchema(Contenido.schema, req);
+        // if (validation !== true) {
+        //     throw new RespuestaError({
+        //         estado: 422,
+        //         mensajeCliente: validation.data,
+        //         mensajeServidor: validation.data,
+        //         resultado: null
+        //     })
+        // }
 
         // verificamos que el codigo sea un codigo
         if (!esCodigo(body.codigo)) {
@@ -79,46 +75,6 @@ export const validacionContenidoPost = async (req = request, res = response, nex
                 estado: 400,
                 mensajeCliente: 'titulo_debe_ser_valido',
                 mensajeServidor: 'el titulo debe ser valido',
-                resultado: null
-            })
-        }
-
-        // verificamos que el contenido tenga al menos 10 caracteres hasta 2700 
-        if (body.descripcion.length > 700 || body.descripcion.length < 10) {
-            throw new RespuestaError({
-                estado: 400,
-                mensajeCliente: 'descripcion_debe_ser_valido',
-                mensajeServidor: 'la descripcion debe ser valido',
-                resultado: null
-            })
-        }
-
-        // verificamos que el contenido tenga al menos 10 caracteres hasta 2700 
-        if (body.texto.length > 2700 || body.texto.length < 10) {
-            throw new RespuestaError({
-                estado: 400,
-                mensajeCliente: 'texto_debe_ser_valido',
-                mensajeServidor: 'el texto debe ser valido',
-                resultado: null
-            })
-        }
-
-        // verficamos que la foto sea una url
-        if (!validUrl.isUri(body.foto)) {
-            throw new RespuestaError({
-                estado: 400,
-                mensajeCliente: 'URL_debe_ser_valido',
-                mensajeServidor: 'el url debe ser valido',
-                resultado: null
-            })
-        }
-
-        // verificamos que el tipos sea Servicio o QuienesSomos
-        if (body.tipo !== "Servicio" && body.tipo !== "QuienesSomos") {
-            throw new RespuestaError({
-                estado: 400,
-                mensajeCliente: 'tipo_debe_ser_valido',
-                mensajeServidor: 'el tipo solo debe ser Servicio o QuienesSomos',
                 resultado: null
             })
         }
@@ -249,7 +205,7 @@ export const validacionContenidoDelete = async (req = request, res = response, n
 
         const contenidos = await contenidoUseCase.obtenerTodos()
 
-        if (contenidos.length <= 2) {
+        if (contenidos.length === 1) {
             throw new RespuestaError({
                 estado: 400,
                 mensajeCliente: 'debe_haber_al_menos_un_servicio',

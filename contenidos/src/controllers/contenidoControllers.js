@@ -4,6 +4,38 @@ import FirestoreContenidoRepository from "../repositories/FirestoreContenidoRepo
 import ContenidoUseCase from "../usecases/ContenidoUseCase.js"
 const contenidosUseCase = new ContenidoUseCase(new FirestoreContenidoRepository())
 
+export const obtenerTodosLosServicios = async (req, res) => {
+    try {
+        const {  } = req
+
+        const contenidos = await contenidosUseCase.obtenerTodos()
+        const servicios = contenidos.filter(v => v.tipo === 'Servicio' && v.titulo !== '' && v.texto !== '' && v.descripcion !== '' && v.foto !== '')
+
+        // Retornar respuesta
+        const respuesta = new Respuesta({
+            estado: 200,
+            mensajeCliente: 'exito',
+            mensajeServidor: 'Se cargaron todos los servicios!',
+            resultado: servicios
+        })
+
+        return res.status(respuesta.estado).json(respuesta.getRespuesta())
+
+    } catch (error) {
+        console.log('Error - obtenerTodosLosServicios: ', error)
+
+        const respuesta =  new RespuestaError({
+            estado: 500,
+            mensajeCliente: 'error_servidor',
+            mensajeServidor: 'error en el servidor',
+            resultado: null
+        })
+
+        return res.status(respuesta.estado).json(respuesta.getRespuesta())
+
+    }
+}
+
 export const obtener = async (req, res) => {
     try {
         const { params } = req
@@ -45,16 +77,15 @@ export const obtener = async (req, res) => {
 
 export const crear = async (req, res) => {
     try {
-        const { params, body } = req
-        const { uid } = params
+        const { body } = req
 
-        let contenido = await contenidosUseCase.crear(uid, {
+        const contenido = await contenidosUseCase.crear({
             codigo: body.codigo,
             titulo: body.titulo,
-            descripcion: body.descripcion,
-            texto: body.texto,
-            foto: body.foto,
-            tipo: body.tipo,
+            descripcion: '',
+            texto: '',
+            foto: '',
+            tipo: 'Servicio',
         })
 
         // Retornar respuesta

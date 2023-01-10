@@ -21,22 +21,8 @@ class ContenidoUseCase {
         return await this.contenidoRepository.obtenerPorCodigo(codigo);
     }
 
-    async crear(uid, data = Contenido.params) {
-
-        const contenido = new Contenido({
-            uid: uid,
-            codigo: data.codigo,
-            titulo: data.titulo,
-            descripcion: data.descripcion,
-            texto: data.texto,
-            foto: data.foto,
-            tipo: data.tipo,
-        });
-
-        await this.contenidoRepository.crear(contenido)
-
-        return contenido;
-
+    async crear(data = Contenido.params) {
+        return await this.contenidoRepository.crear(data)
     }
 
     async actualizar(uid, datosActualizados = Contenido.params) {

@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { crear, actualizar, eliminar, obtener  } from '../controllers/contenidoControllers.js'
+import { crear, actualizar, eliminar, obtener, obtenerTodosLosServicios  } from '../controllers/contenidoControllers.js'
 import { 
     validacionContenidoGet,
     validacionContenidoPost,
@@ -12,6 +12,8 @@ import { estaAutenticado } from '../middlewares/estaAutenticado.js'
 const router = Router()
 
 router.post('/', estaAutenticado, validacionContenidoPost, crear)
+
+router.get('/servicios', obtenerTodosLosServicios)
 
 router.get('/:tipo/:valor', validacionContenidoGet, obtener)
 
