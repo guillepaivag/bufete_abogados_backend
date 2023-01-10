@@ -10,7 +10,7 @@ const app = express()
 // Middlewares
 app.use(cors({
   credentials: true,
-  origin: ['https://jekuaapy.com', 'https://jekuaa-py.web.app', 'http://localhost:3000'],
+  origin: ['https://jekuaapy.com', 'https://consultoria-legal.web.app', 'https://consultoria-legal-dev.web.app', 'http://localhost:3000'],
   methods: ['GET','POST','DELETE','PUT','UPDATE','PATCH'],
   allowedHeaders: ['Authorization', 'Content-Type']
 }))

@@ -1,6 +1,6 @@
 import RespuestaError from "../../../models/RespuestaError.js"
 
-export const verificadorActualizacionContrasena = async (data) => {
+export const verificadorActualizacionContrasena = (data) => {
     const { contrasena, confirmacionContrasena } = data
 
     if (typeof contrasena !== 'string') {

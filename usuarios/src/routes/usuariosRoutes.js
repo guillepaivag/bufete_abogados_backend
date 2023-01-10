@@ -16,7 +16,7 @@ router.put('/contrasena',
     verificacionActualizacionContrasena,
     actualizarContrasena)
 
-router.put('/', 
+router.put('/eliminar-usuario', 
     estaAutenticado, 
     verificacionEliminacionUsuario,
     eliminar)
