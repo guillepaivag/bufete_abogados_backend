@@ -9,9 +9,15 @@ import contenidosRoutes from './routes/contenidosRoutes.js'
 const app = express()
 
 // Middlewares
+const origin = []
+const urlProduccion = ['https://consultoria-legal.com', 'https://consultoria-legal.web.app']
+process.env.ENVIRONMENT === 'production' ? origin.push(...urlProduccion) : ''
+process.env.ES_LOCAL === 'Y' && process.env.ENVIRONMENT === 'development' ? origin.push('http://localhost:3000') : ''
+process.env.ES_LOCAL === 'N' && process.env.ENVIRONMENT === 'development' ? origin.push('https://consultoria-legal-dev.web.app') : ''
+
 app.use(cors({
   credentials: true,
-  origin: ['https://consultoria-legal.com', 'https://consultoria-legal.web.app', 'https://consultoria-legal-dev.web.app', 'http://localhost:3000'],
+  origin,
   methods: ['GET','POST','DELETE','PUT','UPDATE','PATCH'],
   allowedHeaders: ['Authorization', 'Content-Type']
 }))

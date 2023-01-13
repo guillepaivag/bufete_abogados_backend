@@ -77,15 +77,7 @@ class FirestoreContenidoRepository {
 
     const doc = this.collection.doc(uid)
 
-    await doc.set({
-      uid: uid,
-      codigo: datosActualizados.codigo,
-      titulo: datosActualizados.titulo,
-      descripcion: datosActualizados.descripcion,
-      texto: datosActualizados.texto,
-      foto: datosActualizados.foto,
-      tipo: datosActualizados.tipo,
-    })
+    await doc.update(datosActualizados)
 
     return datosActualizados
 

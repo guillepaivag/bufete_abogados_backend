@@ -88,16 +88,17 @@ export const validacionContenidoPost = async (req = request, res = response, nex
 export const validacionContenidoPut = async (req = request, res = response, next) => {
     try {
         const { body, params } = req
+        req.body.datosActualizados = {}
 
-        const validation = validateSchema(Contenido.schema, req);
-        if (validation !== true) {
-            throw new RespuestaError({
-                estado: 422,
-                mensajeCliente: validation.data,
-                mensajeServidor: validation.data,
-                resultado: null
-            })
-        }
+        // const validation = validateSchema(Contenido.schema, req);
+        // if (validation !== true) {
+        //     throw new RespuestaError({
+        //         estado: 422,
+        //         mensajeCliente: validation.data,
+        //         mensajeServidor: validation.data,
+        //         resultado: null
+        //     })
+        // }
 
         // verificamos que exista la uid
         const contenido = await contenidoUseCase.obtenerPorUID(params.uid)
@@ -112,63 +113,60 @@ export const validacionContenidoPut = async (req = request, res = response, next
         }
 
         // verificamos que el codigo sea un codigo
-        if (!esCodigo(body.codigo)) {
-            throw new RespuestaError({
-                estado: 400,
-                mensajeCliente: 'codigo_debe_ser_valido',
-                mensajeServidor: 'el codigo debe ser valido',
-                resultado: null
-            })
+        if (body.codigo) {
+            if (!esCodigo(body.codigo)) {
+                throw new RespuestaError({
+                    estado: 400,
+                    mensajeCliente: 'codigo_debe_ser_valido',
+                    mensajeServidor: 'el codigo debe ser valido',
+                    resultado: null
+                })
+            }
+            req.body.datosActualizados.codigo = body.codigo
         }
 
         // verificamos que el contenido tenga al menos 2 caracteres hasta 100 
-        if (body.titulo.length > 100 || body.titulo.length < 2) {
-            throw new RespuestaError({
-                estado: 400,
-                mensajeCliente: 'titulo_debe_ser_valido',
-                mensajeServidor: 'el titulo debe ser valido',
-                resultado: null
-            })
+        if (body.titulo) {
+            if (body.titulo.length > 100 || body.titulo.length < 2) {
+                throw new RespuestaError({
+                    estado: 400,
+                    mensajeCliente: 'titulo_debe_ser_valido',
+                    mensajeServidor: 'el titulo debe ser valido',
+                    resultado: null
+                })
+            }
+            req.body.datosActualizados.titulo = body.titulo
+        }
+        
+        // verificamos que el contenido tenga al menos 10 caracteres hasta 2700 
+        if (body.descripcion) {
+            if (body.descripcion.length > 700 || body.descripcion.length < 10 ) {
+                throw new RespuestaError({
+                    estado: 400,
+                    mensajeCliente: 'descripcion_debe_ser_valido',
+                    mensajeServidor: 'la descripcion debe ser valido',
+                    resultado: null
+                })
+            }
+            req.body.datosActualizados.descripcion = body.descripcion
         }
 
         // verificamos que el contenido tenga al menos 10 caracteres hasta 2700 
-        if (body.descripcion.length > 700 || body.descripcion.length < 10) {
-            throw new RespuestaError({
-                estado: 400,
-                mensajeCliente: 'descripcion_debe_ser_valido',
-                mensajeServidor: 'la descripcion debe ser valido',
-                resultado: null
-            })
-        }
+        if (body.texto) {
+            let soloTexto = body.texto.replace(/(<([^>]+)>)/ig, '')
+            soloTexto =  soloTexto.replace(/[\n\r]+/g, '')
+            soloTexto = soloTexto.replace(/\s{2,10}/g, ' ')
+            soloTexto = soloTexto.trim()
 
-        // verificamos que el contenido tenga al menos 10 caracteres hasta 2700 
-        if (body.texto.length > 2700 || body.texto.length < 10) {
-            throw new RespuestaError({
-                estado: 400,
-                mensajeCliente: 'texto_debe_ser_valido',
-                mensajeServidor: 'el texto debe ser valido',
-                resultado: null
-            })
-        }
-
-        // verficamos que la foto sea una url
-        if (!validUrl.isUri(body.foto)) {
-            throw new RespuestaError({
-                estado: 400,
-                mensajeCliente: 'URL_debe_ser_valido',
-                mensajeServidor: 'el url debe ser valido',
-                resultado: null
-            })
-        }
-
-        // verificamos que el tipos sea Servicio o QuienesSomos
-        if (body.tipo !== "Servicio" && body.tipo !== "QuienesSomos") {
-            throw new RespuestaError({
-                estado: 400,
-                mensajeCliente: 'tipo_debe_ser_valido',
-                mensajeServidor: 'el tipo solo debe ser Servicio o QuienesSomos',
-                resultado: null
-            })
+            if (soloTexto.length > 2500 || soloTexto.length < 10) {
+                throw new RespuestaError({
+                    estado: 400,
+                    mensajeCliente: 'texto_debe_ser_valido',
+                    mensajeServidor: 'el texto debe ser valido',
+                    resultado: null
+                })
+            }
+            req.body.datosActualizados.texto = body.texto
         }
 
         next()

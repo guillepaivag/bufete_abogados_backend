@@ -10,15 +10,15 @@ class ContenidoUseCase {
     }
 
     async obtenerTodos() {
-        return await this.contenidoRepository.obtenerTodos();
+        return await this.contenidoRepository.obtenerTodos()
     }
 
     async obtenerPorUID(uid) {
-        return await this.contenidoRepository.obtenerPorUID(uid);
+        return await this.contenidoRepository.obtenerPorUID(uid)
     }
 
     async obtenerPorCodigo(codigo) {
-        return await this.contenidoRepository.obtenerPorCodigo(codigo);
+        return await this.contenidoRepository.obtenerPorCodigo(codigo)
     }
 
     async crear(data = Contenido.params) {
@@ -26,12 +26,12 @@ class ContenidoUseCase {
     }
 
     async actualizar(uid, datosActualizados = Contenido.params) {
-        const contenido = await this.contenidoRepository.actualizar(uid, datosActualizados);
-        return contenido;
+        const contenido = await this.contenidoRepository.actualizar(uid, datosActualizados)
+        return contenido
     }
 
     async eliminar(uid) {
-       await this.contenidoRepository.eliminar(uid);
+       await this.contenidoRepository.eliminar(uid)
     }
 
 }

@@ -119,7 +119,7 @@ export const actualizar = async (req, res) => {
         const { params, body } = req
         const { uid } = params
 
-        let contenido = await contenidosUseCase.actualizar(uid, body)
+        const contenido = await contenidosUseCase.actualizar(uid, body.datosActualizados)
 
         // Retornar respuesta
         const respuesta = new Respuesta({

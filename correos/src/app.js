@@ -1,8 +1,9 @@
 import express from 'express'
 import cors from 'cors'
+import manejadorErrores from './helpers/manejadorErrores.js'
 
 // Get Routes
-import usuariosRoutes from './routes/usuariosRoutes.js'
+import correosRoutes from './routes/correosRoutes.js'
 
 // App
 const app = express()
@@ -24,11 +25,14 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 // Routes
-app.use('/usuarios', usuariosRoutes)
+app.use('/correos', correosRoutes)
 
-// Manejo de errores
+// MANEJO DE ERRORES
 app.use((err, req, res, next) => { 
   console.log('Error en middleware: ', err)
+  
+  const respuesta = manejadorErrores( err )
+  return res.status( respuesta.estado ).json( respuesta.getRespuesta() )
 })
 
 export default app
