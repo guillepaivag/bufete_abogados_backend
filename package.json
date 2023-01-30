@@ -4,7 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "usuarios_serve":"cd usuarios && npm run serve",
+    "contenidos_serve":"cd contenidos && npm run serve",
+    "correos_serve":"cd correos && npm run serve",
+
+    "deploy": "cd usuarios && npm run deploy && cd ..",
+    "env_prod": "cd usuarios && firebase use prod && cd .. && cd contenidos && firebase use prod && cd .. cd correos && firebase use prod && cd ..",
+    "env_dev": "cd usuarios && firebase use dev && cd .. && cd contenidos && firebase use dev && cd .. cd correos && firebase use dev && cd ..",
+    "install_all": "cd usuarios && npm i && cd .. && cd contenidos && npm i && cd .. cd correos && npm i && cd .."
   },
   "keywords": [],
   "author": "",
